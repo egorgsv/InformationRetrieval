@@ -9,7 +9,7 @@ from nltk.tokenize import word_tokenize
 
 def memory_limit(maxsize):
     soft, hard = resource.getrlimit(resource.RLIMIT_AS)
-    resource.setrlimit(resource.RLIMIT_DATA, (maxsize, maxsize))
+    resource.setrlimit(resource.RLIMIT_AS, (maxsize, maxsize))
 
 def get_memory():
     with open('/proc/meminfo', 'r') as mem:
