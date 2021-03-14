@@ -1,7 +1,8 @@
-import pandas as pd
 import nltk
-from nltk.tokenize import word_tokenize
+import pandas as pd
 from nltk.stem.porter import PorterStemmer
+from nltk.tokenize import word_tokenize
+
 nltk.download()
 
 truedf = pd.read_csv('data/True.csv')
@@ -32,9 +33,8 @@ print(tuples)
 terms = {}
 for term, DOCid in tuples:
     terms.setdefault(term, set()).add(DOCid)
-
 for term in terms:
     terms[term] = sorted(terms[term])
 print(terms)
 
-terms['putin']
+print(terms['putin'])
