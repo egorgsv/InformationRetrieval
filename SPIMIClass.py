@@ -77,4 +77,4 @@ class SPIMI:
                     self.dictionary[term] = list(block[term])
                 posting_list.clear()
             os.remove(filename)
-            self.__blockCount = 0
+        self.__blockCount = 0
