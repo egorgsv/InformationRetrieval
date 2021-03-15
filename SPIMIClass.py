@@ -9,7 +9,7 @@ class SPIMI:
     '''
 
     def __init__(self):
-        self.__dictCount = 0 #количество записанных блоков
+        self.__blockCount = 0 #количество записанных блоков
         self.dictionary = {} #обратный индекс
 
     def ReadBlock(self,filename):
@@ -26,10 +26,10 @@ class SPIMI:
     def SortAndWriteBlock(self,dictionary):
         for postring_list in dictionary.values():
             postring_list.sort()
-        filename = r'./OutputData/Block'+str(self.__dictCount)+'.txt'
+        filename = r'./OutputData/Block'+str(self.__blockCount)+'.txt'
         with open (filename,'w',encoding='utf-8') as file:
             file.write(str(dictionary))
-        self.__dictCount += 1
+        self.__blockCount += 1
 
     '''
     Сейчас процедура BuildBlock строит и записывает один блок будущего индекса
@@ -40,9 +40,9 @@ class SPIMI:
     лучше поблочно.
     '''
 
-    def BuildBlock(self, Block):
+    def BuildBlock(self, docStream):
         dictionary = {}
-        for doc in Block:
+        for doc in docStream:
             docId = doc.getDocId()
             terms = doc.getTerms()
             for item in terms:
@@ -59,7 +59,7 @@ class SPIMI:
     '''
 
     def MergeBlocks(self):
-        for i in range(self.__dictCount):
+        for i in range(self.__blockCount):
             filename = './OutputData/Block' + str(i) + '.txt'
             block = self.ReadBlock(filename)
             posting_list = []
@@ -77,3 +77,4 @@ class SPIMI:
                     self.dictionary[term] = list(block[term])
                 posting_list.clear()
             os.remove(filename)
+            self.__blockCount = 0
