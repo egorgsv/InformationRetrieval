@@ -19,9 +19,7 @@ def tokenize(df):
 
 def filter(tokens):
     """
-
     Filtering stop words
-
     """
     stop_words = set(stopwords.words("english"))
     for index, row in tokens.iterrows():
@@ -32,11 +30,8 @@ def filter(tokens):
 
 def stem(words):
     """
-
     Stemming of words
-
     DataFrame -> documents
-
     """
     porter = PorterStemmer()
     documents = []
