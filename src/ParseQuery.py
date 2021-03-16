@@ -52,12 +52,21 @@ def prty(o):
 def parse(s):
     lex = []
     for a in s.split():
-        if a in stopwords("english"):
+        if a in set(stopwords.words("english")):
             continue
         if "(" in a:
-            lex += ["("] + [a.replace('(', "")]
+            tmp = a.count('(')
+            while tmp != 0:
+                lex += ["("]
+                tmp -= 1
+            lex += [a.replace('(', "")]
         elif ")" in a:
-            lex += [a.replace(')', "")] + [")"]
+            tmp = a.count(')')
+            lex += [a.replace(')', "")]
+            while tmp != 0:
+                lex += [')']
+                tmp -= 1
         else:
             lex += [a]
+    print(lex)
     return lex
