@@ -21,7 +21,7 @@ def main():
         if polish_query[i] not in OPERATORS:
             polish_query[i] = porter.stem(polish_query[i])
             polish_query[i] = terms[polish_query[i]]
-    ans = search(polish_query)
+    ans = search(polish_query, docs_count)
     print(ans)
 
 

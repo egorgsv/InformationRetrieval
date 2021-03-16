@@ -35,8 +35,11 @@ def AND(x: list, y: list) -> list:
     return ans
 
 
-def NOT(x: list) -> list:
-    pass
+def NOT(x: list, docs_count: int) -> list:
+    ans = []
+    for i in range(docs_count):
+        if i not in x:
+            ans.append(i)
 
 
 OPERATORS = {
@@ -44,26 +47,24 @@ OPERATORS = {
 }
 
 
-def search(expr: list) -> list:
+def search(expr: list, docs_count: int) -> list:
     stack = []
 
     for atom in expr:
         if type(atom) is list:
             stack.append(atom)
         else:
-            try:
+            if atom == "AND":
                 oper2 = stack.pop()
                 oper1 = stack.pop()
-            except IndexError:
-                sys.stderr.write(u"Маловато операндов")
-                sys.exit(1)
-
-            if atom == "AND":
                 oper = AND(oper1, oper2)
             elif atom == "OR":
+                oper2 = stack.pop()
+                oper1 = stack.pop()
                 oper = OR(oper1, oper2)
             elif atom == "NOT":
-                oper = AND(oper1, oper2)
+                oper = stack.pop()
+                oper = NOT(oper, docs_count=docs_count)
             stack.append(oper)
 
     return stack
