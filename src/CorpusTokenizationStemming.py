@@ -1,42 +1,54 @@
 import nltk
+import pandas as pd
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 
+
 # nltk.download()
 
 def tokenize(df):
-    tokens = [word_tokenize(text) for text in df['text']]
-    words = filter(tokens)
-    return words
+    block = df.copy()
+    for index, row in block.iterrows():
+        block.loc[index, 'text'] = word_tokenize(row['text'])
+    block['text'] = filter(block)
+    #block = block['text']
+    return block
+
 
 
 def filter(tokens):
+    """
+
+    Filtering stop words
+
+    """
     stop_words = set(stopwords.words("english"))
-    words = []
-    for document in tokens:
-        without_stop_words = [word for word in document if word.isalpha() and (word not in stop_words)]
-        words.append(without_stop_words)
-    return words
+    for index, row in tokens.iterrows():
+        tokens.loc[index, 'text'] = [word for word in row['text']
+                                     if word.isalpha() and (word not in stop_words)]
+    return tokens['text']
 
 
 def stem(words):
-    # stemming of words
+    """
+
+    Stemming of words
+
+    DataFrame -> dictionary
+
+    """
     porter = PorterStemmer()
     stemmed = []
-    for document in words:
-        stemmed_words = [porter.stem(word) for word in document]
-        stemmed.append(stemmed_words)
+    for index, row in words.iterrows():
+        words.loc[index, 'text'] = [porter.stem(word) for word in row['text']]
 
-    tuples = []
-    for i in range(len(stemmed)):
-        for word in stemmed[i]:
-            tuples.append((word, i))
+    dictionary = {}
+    for docId, row in words.iterrows():
+        for word in row['text']:
+            if word in dictionary.keys():
+                dictionary[word].append(docId)
+            else:
+                dictionary[word] = [docId]
 
-    terms = {}
-    for term, DOCid in tuples:
-        terms.setdefault(term, set()).add(DOCid)
-    for term in terms:
-        terms[term] = sorted(terms[term])
-
-    return terms
+    return dictionary

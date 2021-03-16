@@ -1,6 +1,7 @@
 import ast
 import os
 
+
 class SPIMI:
     '''
     Нужно ли хранить какой-нибудь указатель на список документов?
@@ -9,25 +10,25 @@ class SPIMI:
     '''
 
     def __init__(self):
-        self.__blockCount = 0 # количество записанных блоков
-        self.dictionary = {} # обратный индекс
+        self.__blockCount = 0  # количество записанных блоков
+        self.dictionary = {}  # обратный индекс
 
-    def ReadBlock(self,filename):
-            with open(filename,'r') as file:
-                content = file.read()
-                dictionary = ast.literal_eval(content)
-            return dictionary
+    def ReadBlock(self, filename):
+        with open(filename, 'r') as file:
+            content = file.read()
+            dictionary = ast.literal_eval(content)
+        return dictionary
 
     '''
       Не уверен, что в SortAndWriteBlock необходимо применять сортировку:
       Пока что все блоки поступают отсортированными из main.py (надо проверить)
     '''
 
-    def SortAndWriteBlock(self,dictionary):
+    def SortAndWriteBlock(self, dictionary):
         for postring_list in dictionary.values():
             postring_list.sort()
-        filename = r'./OutputData/Block'+str(self.__blockCount)+'.txt'
-        with open (filename,'w',encoding='utf-8') as file:
+        filename = r'./OutputData/Block' + str(self.__blockCount) + '.txt'
+        with open(filename, 'w', encoding='utf-8') as file:
             file.write(str(dictionary))
         self.__blockCount += 1
 
@@ -46,7 +47,7 @@ class SPIMI:
             docId = doc.getDocId()
             terms = doc.getTerms()
             for item in terms:
-                if (item in dictionary.keys()):
+                if item in dictionary.keys():
                     dictionary[item].append(docId)
                 else:
                     dictionary[item] = [docId]
@@ -65,14 +66,14 @@ class SPIMI:
             posting_list = []
             for term in block.keys():
                 if term in self.dictionary.keys():
-                    while(self.dictionary[term] and block[term]): #merge sort начало
-                         if self.dictionary[term][0] < block[term][0]:
+                    while self.dictionary[term] and block[term]:  # merge sort начало
+                        if self.dictionary[term][0] < block[term][0]:
                             posting_list.append(self.dictionary[term].pop(0))
-                         else:
+                        else:
                             posting_list.append(block[term].pop(0))
                     posting_list.extend(self.dictionary[term])
                     posting_list.extend(block[term])
-                    self.dictionary[term] = list(posting_list) #merge sort конец
+                    self.dictionary[term] = list(posting_list)  # merge sort конец
                 else:
                     self.dictionary[term] = list(block[term])
                 posting_list.clear()

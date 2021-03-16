@@ -5,12 +5,11 @@ from src.ParseQuery import *
 
 
 def main():
-    truedf = pd.read_csv('data/True.csv')
-    words = tokenize(truedf)
-    print("Tokenization complete!")
-    terms = stem(words)
-    print("Stemming complete!")
-    print(terms)
+    with pd.read_csv("data/True.csv", chunksize=1000) as reader:
+        for chunk in reader:
+            words = tokenize(chunk)
+            terms = stem(words)
+            print(terms)
 
 
 if __name__ == '__main__':
