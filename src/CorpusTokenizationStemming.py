@@ -37,7 +37,7 @@ def stem(words):
 
     Stemming of words
 
-    DataFrame -> dictionary
+    DataFrame -> documents
 
     """
     porter = PorterStemmer()
