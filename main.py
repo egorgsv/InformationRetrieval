@@ -12,7 +12,7 @@ def main():
         for chunk in reader:
             words = tokenize(chunk)
             terms = stem(words)
-            docs_count = docs_count + len(chunk)
+            docs_count += len(chunk)
 
     #index = SPIMI()      Тут надо как-то часть Димы реализовать
     porter = PorterStemmer()
