@@ -103,4 +103,3 @@ def search(expr):
         sys.exit(1)
 
     return stack.pop()
-
