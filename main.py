@@ -20,15 +20,16 @@ def main():
             docs_count += len(chunk)
     spimi.merge_blocks()
 
-    #index = SPIMI()      Тут надо как-то часть Димы реализовать
     porter = PorterStemmer()
     polish_query = reversed_polish_notation(args.QUERY)
     for i in range(len(polish_query)):
         if polish_query[i] not in OPERATORS:
             polish_query[i] = porter.stem(polish_query[i])
-            polish_query[i] = docs[polish_query[i]]
+            polish_query[i] = spimi.inverted_index[polish_query[i]]
     ans = search(polish_query, docs_count)
-    print(ans)
+    for i in ans:
+        with pd.read_csv(f'data/block{int(docs_count / 1000)}.csv') as reader:
+            print(reader[i])
 
 
 if __name__ == '__main__':

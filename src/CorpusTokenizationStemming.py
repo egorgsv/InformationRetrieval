@@ -3,7 +3,7 @@ import pandas as pd
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from src.DocumentClass import Document
+from src.document import Document
 
 # nltk.download()
 
