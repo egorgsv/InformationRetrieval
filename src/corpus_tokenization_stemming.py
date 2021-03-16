@@ -5,7 +5,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from src.document import Document
 
-# nltk.download()
+#nltk.download()
 
 
 def tokenize(df):

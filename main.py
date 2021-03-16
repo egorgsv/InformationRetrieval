@@ -23,7 +23,7 @@ def main():
             docs_count += len(chunk)
             pbar.update(chunksize)
     spimi.merge_blocks()
-    pbar.close();
+    pbar.close()
     del pbar
 
     porter = PorterStemmer()
