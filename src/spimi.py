@@ -1,5 +1,6 @@
 import ast
 import os
+from typing import NoReturn
 
 
 class Spimi:
@@ -9,18 +10,18 @@ class Spimi:
         self.inverted_index = {}  # обратный индекс
 
     @staticmethod
-    def read_block(filename):
+    def read_block(filename: str) -> dict:
         with open(filename, 'r') as file:
             content = file.read()
             dictionary = ast.literal_eval(content)
         return dictionary
 
-    def write_block(self, dictionary, filename):
+    def write_block(self, dictionary: dict, filename: str) -> NoReturn:
         with open(filename, 'w', encoding='utf-8') as file:
             file.write(str(dictionary))
         self.__block_count += 1
 
-    def build_block(self, doc_stream):
+    def build_block(self, doc_stream: list) -> NoReturn:
         dictionary = {}
         for doc in doc_stream:
             doc_id = doc.get_doc_id()
@@ -32,7 +33,7 @@ class Spimi:
                     dictionary[term] = [doc_id]
         self.write_block(dictionary, r'./OutputData/Block' + str(self.__block_count) + '.txt')
 
-    def merge_blocks(self):
+    def merge_blocks(self) -> NoReturn:
         for i in range(self.__block_count):
             filename = './OutputData/Block' + str(i) + '.txt'
             block = self.read_block(filename)
