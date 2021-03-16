@@ -16,7 +16,7 @@ def reversed_polish_notation(s: str) -> list:
             if s2 == []:
                 s2 = [a]
             elif a == ")":
-                while (True):
+                while True:
                     q = s2[0]
                     s2 = s2[1:]
                     if q == "(":
@@ -25,7 +25,7 @@ def reversed_polish_notation(s: str) -> list:
             elif prty(s2[0]) < prty(a):
                 s2 = [a] + s2
             else:
-                while (True):
+                while True:
                     if s2 == []:
                         break
                     q = s2[0]
