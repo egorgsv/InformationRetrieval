@@ -6,7 +6,7 @@ from nltk.corpus import stopwords
 
 
 # nltk.download()
-from src.DocumentClass import Document
+from src.document import Document
 
 
 def tokenize(df):
