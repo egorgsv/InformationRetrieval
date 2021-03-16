@@ -34,7 +34,7 @@ def main():
     ans = search(polish_query, docs_count)
     for i in ans:
         df = pd.read_csv(f'data/block{i//chunksize}.csv')
-        print(df[i])
+        print(df.loc[i, 'text'])
 
 
 if __name__ == '__main__':
