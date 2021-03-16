@@ -30,7 +30,7 @@ def filter(tokens: pd.DataFrame) -> pd.DataFrame:
 def stem(words: pd.DataFrame):
     """
     Stemming of words
-    DataFrame -> documents
+
     """
     porter = PorterStemmer()
     documents = []
