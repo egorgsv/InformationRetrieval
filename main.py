@@ -1,7 +1,7 @@
 import argparse
 import pandas as pd
 from src.CorpusTokenizationStemming import *
-from src.utils import *
+from src.ParseQuery import *
 
 
 def main():

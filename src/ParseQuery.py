@@ -1,4 +1,4 @@
-import sys
+from nltk.corpus import stopwords
 
 
 def reversed_polish_notation(s):
@@ -52,6 +52,8 @@ def prty(o):
 def parse(s):
     lex = []
     for a in s.split():
+        if a in stopwords("english"):
+            continue
         if "(" in a:
             lex += ["("] + [a.replace('(', "")]
         elif ")" in a:
@@ -59,47 +61,3 @@ def parse(s):
         else:
             lex += [a]
     return lex
-
-
-OPERATORS = {
-    '+': float.__add__,
-    '-': float.__sub__,
-    '*': float.__mul__,
-    '/': float.__div__,
-    '%': float.__mod__,
-    '^': float.__pow__,
-}
-
-
-def search(expr):
-    ops = OPERATORS.keys()
-    stack = []
-
-    for atom in expr:
-        try:
-            atom = float(atom)
-            stack.append(atom)
-        except ValueError:
-            for oper in atom:
-                if oper not in ops:
-                    continue
-                try:
-                    oper2 = stack.pop()
-                    oper1 = stack.pop()
-                except IndexError:
-                    sys.stderr.write(u"Маловато операндов")
-                    sys.exit(1)
-
-                try:
-                    oper = OPERATORS[oper](oper1, oper2)
-                except ZeroDivisionError:
-                    sys.stderr.write(u"Нельзя делить на 0")
-                    sys.exit(1)
-
-                stack.append(oper)
-
-    if len(stack) != 1:
-        sys.stderr.write(u"Многовато операндов")
-        sys.exit(1)
-
-    return stack.pop()
