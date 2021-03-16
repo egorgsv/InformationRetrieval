@@ -8,10 +8,12 @@ from src.document import Document
 
 
 def main():
+    docs_count = 0
     with pd.read_csv("data/True.csv", chunksize=1000) as reader:
         for chunk in reader:
             words = tokenize(chunk)
             terms = stem(words)
+            docs_count += len(chunk)
 
     #index = SPIMI()      Тут надо как-то часть Димы реализовать
     porter = PorterStemmer()
@@ -20,7 +22,7 @@ def main():
         if polish_query[i] not in OPERATORS:
             polish_query[i] = porter.stem(polish_query[i])
             polish_query[i] = terms[polish_query[i]]
-    ans = search(polish_query)
+    ans = search(polish_query, docs_count)
     print(ans)
 
 
