@@ -20,7 +20,7 @@ def main():
             spimi.build_block(docs)
             chunk.to_csv('data/block{}.csv'.format(docs_count//chunksize))
             docs_count += len(chunk)
-            pbar.update(1)
+            pbar.update(chunksize)
     spimi.merge_blocks()
     pbar.close();
     del pbar
