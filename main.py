@@ -3,8 +3,7 @@ import pandas as pd
 from src.CorpusTokenizationStemming import *
 from src.ParseQuery import reversed_polish_notation
 from src.Search import search, OPERATORS
-from src.spimi import Spimi
-from src.document import Document
+from src.SPIMIClass import SPIMI
 
 
 def main():
@@ -13,6 +12,7 @@ def main():
         for chunk in reader:
             words = tokenize(chunk)
             terms = stem(words)
+            chunk.to_csv('data/block{}.csv'.format(int(docs_count/1000)))
             docs_count += len(chunk)
 
     #index = SPIMI()      Тут надо как-то часть Димы реализовать
