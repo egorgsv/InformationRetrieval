@@ -1,7 +1,9 @@
 import argparse
 import pandas as pd
 from src.CorpusTokenizationStemming import *
-from src.ParseQuery import *
+from src.ParseQuery import reversed_polish_notation
+from src.Search import search, OPERATORS
+from src.SPIMIClass import SPIMI
 
 
 def main():
@@ -10,7 +12,16 @@ def main():
     print("Tokenization complete!")
     terms = stem(words)
     print("Stemming complete!")
-    print(terms)
+
+    #index = SPIMI()      Тут надо как-то часть Димы реализовать
+
+    polish_query = reversed_polish_notation(args.QUERY)
+    for i in range(len(polish_query)):
+        if polish_query[i] not in OPERATORS:
+            polish_query[i] = terms[polish_query[i]]
+    ans = search(polish_query)
+    print(ans)
+
 
 
 if __name__ == '__main__':
@@ -18,4 +29,4 @@ if __name__ == '__main__':
     parser.add_argument('QUERY', type=str)
     args = parser.parse_args()
 
-    print(reversed_polish_notation(str(args.QUERY)))
+    main()
