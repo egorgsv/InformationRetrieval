@@ -14,7 +14,6 @@ def tokenize(df):
     for index, row in block.iterrows():
         block.loc[index, 'text'] = word_tokenize(row['text'])
     block['text'] = filter(block)
-    #block = block['text']
     return block
 
 
