@@ -18,6 +18,7 @@ def main():
             words = tokenize(chunk)
             docs = stem(words)
             spimi.build_block(docs)
+            chunk['index'] = chunk.index
             chunk.to_csv('data/block{}.csv'.format(docs_count//chunksize))
             docs_count += len(chunk)
             pbar.update(chunksize)
@@ -33,8 +34,8 @@ def main():
             polish_query[i] = spimi.inverted_index[polish_query[i]]
     ans = search(polish_query, docs_count)
     for i in ans:
-        df = pd.read_csv(f'data/block{i//chunksize}.csv')
-        print(df.loc[i, 'text'])
+        df = pd.read_csv('data/block{}.csv'.format(i//chunksize), index_col='index')
+        print("docID = {}".format(i), df.loc[i, 'text'])
 
 
 if __name__ == '__main__':

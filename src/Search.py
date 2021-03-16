@@ -67,4 +67,4 @@ def search(expr: list, docs_count: int) -> list:
                 oper = NOT(oper, docs_count=docs_count)
             stack.append(oper)
 
-    return stack
+    return stack[0]
