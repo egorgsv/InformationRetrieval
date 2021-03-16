@@ -1,8 +1,8 @@
 import argparse
 import pandas as pd
-from src.CorpusTokenizationStemming import *
-from src.ParseQuery import reversed_polish_notation
-from src.Search import search, OPERATORS
+from src.corpus_tokenization_stemming import *
+from src.parse_query import reversed_polish_notation
+from src.search import search, OPERATORS
 from src.spimi import Spimi
 import tqdm
 from src.document import Document
