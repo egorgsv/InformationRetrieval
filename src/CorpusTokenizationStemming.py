@@ -46,8 +46,9 @@ def stem(words):
     dictionary = {}
     for docId, row in words.iterrows():
         for word in row['text']:
-            if word in dictionary.keys():
-                dictionary[word].append(docId)
+            if word in dictionary:
+                if docId not in dictionary[word]:
+                    dictionary[word].append(docId)
             else:
                 dictionary[word] = [docId]
 

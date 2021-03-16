@@ -79,3 +79,4 @@ class SPIMI:
                 posting_list.clear()
             os.remove(filename)
         self.__blockCount = 0
+
