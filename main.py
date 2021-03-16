@@ -8,11 +8,12 @@ from src.SPIMIClass import SPIMI
 
 def main():
     docs_count = 0
-    with pd.read_csv("data/True.csv", chunksize=1000) as reader:
+    chunksize = 1000
+    with pd.read_csv("data/True.csv", chunksize=chunksize) as reader:
         for chunk in reader:
             words = tokenize(chunk)
             terms = stem(words)
-            chunk.to_csv('data/block{}.csv'.format(int(docs_count/1000)))
+            chunk.to_csv('data/block{}.csv'.format(int(docs_count/chunksize)))
             docs_count += len(chunk)
 
     #index = SPIMI()      Тут надо как-то часть Димы реализовать
