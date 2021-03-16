@@ -6,6 +6,8 @@ from nltk.corpus import stopwords
 
 
 # nltk.download()
+from src.DocumentClass import Document
+
 
 def tokenize(df):
     block = df.copy()
@@ -39,17 +41,8 @@ def stem(words):
 
     """
     porter = PorterStemmer()
-    stemmed = []
+    documents = []
     for index, row in words.iterrows():
-        words.loc[index, 'text'] = [porter.stem(word) for word in row['text']]
+        documents.append(Document(index, set([porter.stem(word) for word in row['text']])))
 
-    dictionary = {}
-    for docId, row in words.iterrows():
-        for word in row['text']:
-            if word in dictionary:
-                if docId not in dictionary[word]:
-                    dictionary[word].append(docId)
-            else:
-                dictionary[word] = [docId]
-
-    return dictionary
+    return documents
