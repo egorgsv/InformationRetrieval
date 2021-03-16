@@ -9,15 +9,16 @@ from src.document import Document
 
 def main():
     docs_count = 0
-    spimi = Spimi
-    with pd.read_csv("data/True.csv", chunksize=1000) as reader:
+    chunksize = 1000
+    spimi = Spimi()
+    with pd.read_csv("data/True.csv", chunksize=chunksize) as reader:
         for chunk in reader:
             words = tokenize(chunk)
             docs = stem(words)
-            spimi.write_block(docs)
-            chunk.to_csv('data/block{}.csv'.format(int(docs_count/1000)))
+            spimi.build_block(docs)
+            chunk.to_csv('data/block{}.csv'.format(int(docs_count/chunksize)))
             docs_count += len(chunk)
-        spimi.merge_blocks()
+    spimi.merge_blocks()
 
     #index = SPIMI()      Тут надо как-то часть Димы реализовать
     porter = PorterStemmer()
