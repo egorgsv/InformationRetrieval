@@ -12,11 +12,12 @@ def main():
             words = tokenize(chunk)
             terms = stem(words)
 
-            #index = SPIMI()      Тут надо как-то часть Димы реализовать
-
+    #index = SPIMI()      Тут надо как-то часть Димы реализовать
+    porter = PorterStemmer()
     polish_query = reversed_polish_notation(args.QUERY)
     for i in range(len(polish_query)):
         if polish_query[i] not in OPERATORS:
+            polish_query[i] = porter.stem(polish_query[i])
             polish_query[i] = terms[polish_query[i]]
     ans = search(polish_query)
     print(ans)

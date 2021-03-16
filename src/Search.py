@@ -48,7 +48,7 @@ def search(expr: list) -> list:
     stack = []
 
     for atom in expr:
-        if atom not in OPERATORS:
+        if type(atom) is list:
             stack.append(atom)
         else:
             try:
