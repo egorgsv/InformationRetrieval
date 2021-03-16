@@ -13,7 +13,7 @@ class SPIMI:
         self.__blockCount = 0  # количество записанных блоков
         self.dictionary = {}  # обратный индекс
 
-    def ReadBlock(self, filename):
+    def readBlock(self, filename):
         with open(filename, 'r') as file:
             content = file.read()
             dictionary = ast.literal_eval(content)
@@ -24,7 +24,7 @@ class SPIMI:
       Пока что все блоки поступают отсортированными из main.py (надо проверить)
     '''
 
-    def SortAndWriteBlock(self, dictionary):
+    def sortAndWriteBlock(self, dictionary):
         for postring_list in dictionary.values():
             postring_list.sort()
         filename = r'./OutputData/Block' + str(self.__blockCount) + '.txt'
@@ -41,7 +41,7 @@ class SPIMI:
     лучше поблочно.
     '''
 
-    def BuildBlock(self, docStream):
+    def buildBlock(self, docStream):
         dictionary = {}
         for doc in docStream:
             docId = doc.getDocId()
@@ -59,7 +59,7 @@ class SPIMI:
     Если она не нужна, можно заменить на просто self.dictionary.extend(block[term])
     '''
 
-    def MergeBlocks(self):
+    def mergeBlocks(self):
         for i in range(self.__blockCount):
             filename = './OutputData/Block' + str(i) + '.txt'
             block = self.ReadBlock(filename)
