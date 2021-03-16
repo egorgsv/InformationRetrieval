@@ -5,10 +5,10 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from src.document import Document
 
-#nltk.download()
+nltk.download()
 
 
-def tokenize(df):
+def tokenize(df: pd.DataFrame) -> pd.DataFrame:
     block = df.copy()
     for index, row in block.iterrows():
         block.loc[index, 'text'] = word_tokenize(row['text'])
@@ -16,8 +16,7 @@ def tokenize(df):
     return block
 
 
-
-def filter(tokens):
+def filter(tokens: pd.DataFrame) -> pd.DataFrame:
     """
     Filtering stop words
     """
@@ -28,7 +27,7 @@ def filter(tokens):
     return tokens['text']
 
 
-def stem(words):
+def stem(words: pd.DataFrame):
     """
     Stemming of words
     DataFrame -> documents
