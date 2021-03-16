@@ -78,3 +78,17 @@ class SPIMI:
                 posting_list.clear()
             os.remove(filename)
         self.__blockCount = 0
+
+    '''
+    Это, возможно, лишние тут перегрузки, я просто думаю, как реализовать AND OR NOT в поиске 
+    '''
+
+    def __and__(self, other):
+        pass
+
+    def __or__(self, other):
+        pass
+
+    def __neg__(self, other):
+        pass
+

@@ -12,12 +12,3 @@ class Document:
 
     def getDocId(self):
         return self.docId
-
-    def __and__(self, other):
-        pass
-
-    def __or__(self, other):
-        pass
-
-    def __neg__(self, other):
-        pass

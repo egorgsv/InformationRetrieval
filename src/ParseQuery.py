@@ -71,5 +71,4 @@ def parse(s: str) -> list:
                 tmp -= 1
         else:
             lex += [a]
-    print(lex)
     return lex

@@ -1,11 +1,11 @@
 import sys
-from src.DocumentClass import Document
+from src.SPIMIClass import SPIMI
 
 
 OPERATORS = {
-    'OR': Document.__or__,
-    'NOT': Document.__neg__,
-    'AND': Document.__and__,
+    'OR': SPIMI.__or__,
+    'NOT': SPIMI.__neg__,
+    'AND': SPIMI.__and__,
 }
 
 
@@ -27,4 +27,4 @@ def search(expr):
             oper = OPERATORS[atom](oper1, oper2)
             stack.append(oper)
 
-    return stack.pop()
+    print('still not available...')
