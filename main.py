@@ -3,7 +3,8 @@ import pandas as pd
 from src.CorpusTokenizationStemming import *
 from src.ParseQuery import reversed_polish_notation
 from src.Search import search, OPERATORS
-from src.SPIMIClass import SPIMI
+from src.spimi import Spimi
+from src.document import Document
 
 
 def main():
