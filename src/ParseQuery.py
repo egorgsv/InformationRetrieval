@@ -1,7 +1,10 @@
 from nltk.corpus import stopwords
 
 
-def reversed_polish_notation(s):
+def reversed_polish_notation(s: str) -> list:
+    for char in s:
+        if char in "?.!/;:-":
+            s.replace(char, '')
     lex = parse(s)
     s2 = []
     r = []
@@ -40,7 +43,7 @@ def reversed_polish_notation(s):
     return r
 
 
-def prty(o):
+def prty(o: str) -> int:
     if o == "OR":
         return 1
     elif o == "AND" or o == "NOT":
@@ -49,7 +52,7 @@ def prty(o):
         return 0
 
 
-def parse(s):
+def parse(s: str) -> list:
     lex = []
     for a in s.split():
         if a in set(stopwords.words("english")):
