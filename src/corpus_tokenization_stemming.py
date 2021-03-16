@@ -16,7 +16,6 @@ def tokenize(df):
     return block
 
 
-
 def filter(tokens):
     """
     Filtering stop words

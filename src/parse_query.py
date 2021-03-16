@@ -1,5 +1,6 @@
 from nltk.corpus import stopwords
 
+
 def reversed_polish_notation(s: str) -> list:
     for char in s:
         if char in "?.!/;:-":
