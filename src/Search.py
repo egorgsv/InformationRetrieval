@@ -40,6 +40,7 @@ def NOT(x: list, docs_count: int) -> list:
     for i in range(docs_count):
         if i not in x:
             ans.append(i)
+    return ans
 
 
 OPERATORS = {
