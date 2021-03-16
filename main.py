@@ -13,6 +13,7 @@ def main():
             words = tokenize(chunk)
             terms = stem(words)
             docs_count = docs_count + len(chunk)
+            chunk.to_csv('data/block{}.csv'.format(int(docs_count/1000)))
 
     #index = SPIMI()      Тут надо как-то часть Димы реализовать
     porter = PorterStemmer()
