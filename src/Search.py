@@ -24,12 +24,7 @@ def search(expr):
                 sys.stderr.write(u"Маловато операндов")
                 sys.exit(1)
 
-            try:
-                oper = OPERATORS[atom](oper1, oper2)
-            except ZeroDivisionError:
-                sys.stderr.write(u"Нельзя делить на 0")
-                sys.exit(1)
-
+            oper = OPERATORS[atom](oper1, oper2)
             stack.append(oper)
 
     return stack.pop()
