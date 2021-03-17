@@ -16,7 +16,6 @@ with open(r"data/flag.txt", 'r') as f:
 with open(r"data/flag.txt", 'w') as f:
     if n == 0:
         n = 1
-        flag = bool(n)
         nltk.download('stopwords')
     f.write(str(n))
 
@@ -25,7 +24,7 @@ def main():
     docs_count = 0
     chunksize = 1000
     spimi = Spimi()
-    if not flag:
+    if n == 0:
         pbar = tqdm.tqdm(docs_count, position=0, leave=True)
         with pd.read_csv(r"data/True.csv", chunksize=chunksize) as reader:
             for chunk in reader:
