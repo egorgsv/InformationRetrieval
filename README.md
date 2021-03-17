@@ -4,7 +4,7 @@
 * Python >= 3.8
 * pip
 * git
-* 
+
 ## Installing
 ```shell
 git clone https://github.com/egorgsv/InformationRetrieval
