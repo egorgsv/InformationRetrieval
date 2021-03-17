@@ -7,14 +7,15 @@ from src.spimi import Spimi
 import tqdm
 from termcolor import colored
 from src.document import Document
+import sys
 
 with open(r"data/flag.txt", 'r') as f:
     n = int(f.read())
 
 with open(r"data/flag.txt", 'w') as f:
-    if n == 0:
-        nltk.download('stopwords')
-        nltk.download('punkt')
+    #if n == 0:
+        #nltk.download('stopwords')
+        #nltk.download('punkt')
     f.write(str(1))
 
 
@@ -47,7 +48,11 @@ def main():
         if polish_query[i] not in OPERATORS:
             polish_query[i] = porter.stem(polish_query[i])
             terms += [polish_query[i]]
-            polish_query[i] = spimi.inverted_index[polish_query[i]]
+            if polish_query[i] not in spimi.inverted_index.keys():
+                print("Oops! Данное слово не найдено, попробуйте другое...")
+                sys.exit(1)
+            else:
+                polish_query[i] = spimi.inverted_index[polish_query[i]]
     ans = search(polish_query, docs_count)
     for i in ans:
         df = pd.read_csv('data/block{}.csv'.format(i//chunksize), index_col='index')
