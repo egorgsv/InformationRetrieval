@@ -18,6 +18,7 @@ with open(r"data/flag.txt", 'w') as f:
         nltk.download()
     f.write(str(n))
 
+
 def main():
     docs_count = 0
     chunksize = 1000
