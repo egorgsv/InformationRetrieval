@@ -1,15 +1,17 @@
 # InformationRetrieval
-##Prequirements
+
+## Prerequirements
 * Python >= 3.8
 * pip
 * git
-##Installing
+* 
+## Installing
 ```shell
 git clone https://github.com/egorgsv/InformationRetrieval
 pip install -r requirements.txt
 ```
 
-##Usage
+## Usage
 ```shell
 cd InformationRetrieval
 python3 main.py "head AND conservative"
