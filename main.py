@@ -6,7 +6,7 @@ from src.search import search, OPERATORS
 from src.spimi import Spimi
 import tqdm
 from src.document import Document
-nltk.download('punkt')
+
 
 def main():
     docs_count = 0
