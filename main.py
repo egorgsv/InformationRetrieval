@@ -6,14 +6,14 @@ from src.search import search, OPERATORS
 from src.spimi import Spimi
 import tqdm
 from src.document import Document
-
+nltk.download('punkt')
 
 def main():
     docs_count = 0
     chunksize = 1000
     spimi = Spimi()
     pbar = tqdm.tqdm(docs_count, position=0, leave=True)
-    with pd.read_csv("data/True.csv", chunksize=chunksize) as reader:
+    with pd.read_csv(r"data/True.csv", chunksize=chunksize) as reader:
         for chunk in reader:
             words = tokenize(chunk)
             docs = stem(words)
