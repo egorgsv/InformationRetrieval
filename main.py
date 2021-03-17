@@ -6,7 +6,6 @@ from src.search import search, OPERATORS
 from src.spimi import Spimi
 import tqdm
 from src.document import Document
-from termcolor import colored
 
 
 def main():
@@ -28,12 +27,10 @@ def main():
     del pbar
 
     porter = PorterStemmer()
-    terms = list()
     polish_query = reversed_polish_notation(args.QUERY)
     for i in range(len(polish_query)):
         if polish_query[i] not in OPERATORS:
             polish_query[i] = porter.stem(polish_query[i])
-            terms += [polish_query[i]]
             polish_query[i] = spimi.inverted_index[polish_query[i]]
     ans = search(polish_query, docs_count)
     for i in ans:
@@ -43,6 +40,7 @@ def main():
             df.loc[i, 'text'] = df.loc[i, 'text'].replace(' ' + j[0].upper() + j[1:],
                                                           colored(' ' + j[0].upper() + j[1:], 'green'))
         print(colored("docID = {}\n".format(i), 'blue'), df.loc[i, 'text'], end='\n\n')
+
 
 
 if __name__ == '__main__':
