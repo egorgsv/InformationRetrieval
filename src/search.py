@@ -16,6 +16,11 @@ def OR(x: list, y: list) -> list:
             ans.append(x[i])
             i += 1
             j += 1
+
+    if i == len(x):
+        ans.extend(y[j:])
+    elif j == len(y):
+        ans.extend(x[i:])
     return ans
 
 
