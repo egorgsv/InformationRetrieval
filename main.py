@@ -8,15 +8,13 @@ import tqdm
 from termcolor import colored
 from src.document import Document
 
-
 with open(r"data/flag.txt", 'r') as f:
     n = int(f.read())
 
 with open(r"data/flag.txt", 'w') as f:
     if n == 0:
-        n = 1
         nltk.download('stopwords')
-    f.write(str(n))
+    f.write(str(1))
 
 
 def main():
