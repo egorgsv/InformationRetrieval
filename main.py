@@ -41,6 +41,7 @@ def main():
         del pbar
     else:
         spimi.load_inverted_index_from_file()
+        docs_count = 21417
 
     terms = list()
     porter = PorterStemmer()
