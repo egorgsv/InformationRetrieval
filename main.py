@@ -40,6 +40,7 @@ def main():
         df = pd.read_csv('data/block{}.csv'.format(i//chunksize), index_col='index')
         for j in terms:
             df.loc[i, 'text'] = df.loc[i, 'text'].replace(' ' + j, colored(' ' + j, 'green'))
+            df.loc[i, 'text'] = df.loc[i, 'text'].replace(' ' + j[0].upper() + j[1:], colored(' ' + j[0].upper() + j[1:], 'green'))
         print(colored("docID = {}\n".format(i), 'blue'), df.loc[i, 'text'], end='\n\n')
 
 
