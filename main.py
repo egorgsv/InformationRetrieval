@@ -15,8 +15,8 @@ with open(r"data/flag.txt", 'r') as f:
 with open(r"data/flag.txt", 'w') as f:
     if n == 0:
         n = 1
-        f.write(str(n))
         nltk.download()
+    f.write(str(n))
 
 
 def main():
