@@ -32,7 +32,7 @@ def main():
     for i in range(len(polish_query)):
         if polish_query[i] not in OPERATORS:
             polish_query[i] = porter.stem(polish_query[i])
-            terms += polish_query[i]
+            terms += [polish_query[i]]
             polish_query[i] = spimi.inverted_index[polish_query[i]]
     ans = search(polish_query, docs_count)
     for i in ans:
