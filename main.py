@@ -11,7 +11,6 @@ from src.document import Document
 
 with open(r"data/flag.txt", 'r') as f:
     n = int(f.read())
-    flag = bool(n)
 
 with open(r"data/flag.txt", 'w') as f:
     if n == 0:
