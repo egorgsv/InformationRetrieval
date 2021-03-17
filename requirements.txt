@@ -1,0 +1,7 @@
+pandas
+nltk
+termcolor
+argparse
+tqdm
+ast
+typing
