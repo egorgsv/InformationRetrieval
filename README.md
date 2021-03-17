@@ -21,4 +21,5 @@ There are three operations that are able to use: AND, OR and NOT.
 Also we realized brackets construction
 ```shell
 python3 main.py "head AND (conservative OR faction)"
+python3 main.py "head AND (conservative OR faction) AND (NOT Guatemala)"
 ```
