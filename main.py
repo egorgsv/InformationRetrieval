@@ -17,7 +17,7 @@ with open(r"data/flag.txt", 'w') as f:
     if n == 0:
         n = 1
         flag = bool(n)
-        nltk.download()
+        nltk.download('stopwords')
     f.write(str(n))
 
 
