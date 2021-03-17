@@ -9,6 +9,16 @@ from termcolor import colored
 from src.document import Document
 
 
+with open(r"data/flag.txt", 'r') as f:
+    n = int(f.read())
+
+with open(r"data/flag.txt", 'w') as f:
+    if n == 0:
+        n = 1
+        f.write(str(n))
+        nltk.download()
+
+
 def main():
     docs_count = 0
     chunksize = 1000
