@@ -15,27 +15,31 @@ with open(r"data/flag.txt", 'r') as f:
 with open(r"data/flag.txt", 'w') as f:
     if n == 0:
         n = 1
-        f.write(str(n))
         nltk.download()
-
+    f.write(str(n))
 
 def main():
     docs_count = 0
     chunksize = 1000
     spimi = Spimi()
-    pbar = tqdm.tqdm(docs_count, position=0, leave=True)
-    with pd.read_csv(r"data/True.csv", chunksize=chunksize) as reader:
-        for chunk in reader:
-            words = tokenize(chunk)
-            docs = stem(words)
-            spimi.build_block(docs)
-            chunk['index'] = chunk.index
-            chunk.to_csv('data/block{}.csv'.format(docs_count//chunksize))
-            docs_count += len(chunk)
-            pbar.update(chunksize)
-    spimi.merge_blocks()
-    pbar.close()
-    del pbar
+    flag = True
+    if flag:
+        pbar = tqdm.tqdm(docs_count, position=0, leave=True)
+        with pd.read_csv(r"data/True.csv", chunksize=chunksize) as reader:
+            for chunk in reader:
+                words = tokenize(chunk)
+                docs = stem(words)
+                spimi.build_block(docs)
+                chunk['index'] = chunk.index
+                chunk.to_csv('data/block{}.csv'.format(docs_count//chunksize))
+                docs_count += len(chunk)
+                pbar.update(chunksize)
+        spimi.merge_blocks()
+        pbar.close()
+        del pbar
+    else:
+        spimi.load_inverted_index_from_file()
+
     terms = list()
     porter = PorterStemmer()
     polish_query = reversed_polish_notation(args.QUERY)
