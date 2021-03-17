@@ -13,9 +13,9 @@ with open(r"data/flag.txt", 'r') as f:
     n = int(f.read())
 
 with open(r"data/flag.txt", 'w') as f:
-    #if n == 0:
-        #nltk.download('stopwords')
-        #nltk.download('punkt')
+    if n == 0:
+        nltk.download('stopwords')
+        nltk.download('punkt')
     f.write(str(1))
 
 
