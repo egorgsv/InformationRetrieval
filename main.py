@@ -38,7 +38,6 @@ def main():
         pbar.close()
         del pbar
     else:
-        spimi.load_inverted_index_from_file()
         docs_count = 21417
 
     terms = list()
@@ -46,13 +45,15 @@ def main():
     polish_query = reversed_polish_notation(args.QUERY)
     for i in range(len(polish_query)):
         if polish_query[i] not in OPERATORS:
+            if polish_query[i][0] not in spimi.inverted_index.keys():
+                spimi.load_inverted_index_from_file(polish_query[i][0])
             polish_query[i] = porter.stem(polish_query[i])
             terms += [polish_query[i]]
-            if polish_query[i] not in spimi.inverted_index.keys():
+            if polish_query[i] not in spimi.inverted_index[polish_query[i][0]].keys():
                 print("Oops! Данное слово не найдено, попробуйте другое...")
                 sys.exit(1)
             else:
-                polish_query[i] = spimi.inverted_index[polish_query[i]]
+            polish_query[i] = spimi.inverted_index[polish_query[i][0]][polish_query[i]]
     ans = search(polish_query, docs_count)
     for i in ans:
         df = pd.read_csv('data/block{}.csv'.format(i//chunksize), index_col='index')

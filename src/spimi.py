@@ -9,9 +9,9 @@ class Spimi:
         self.__block_count = 0  # количество записанных блоков
         self.inverted_index = {}  # обратный индекс
 
-    def load_inverted_index_from_file(self):
-        with open(r'./OutputData/InvertedIndex.txt', 'r') as f:
-            self.inverted_index = ast.literal_eval(f.read())
+    def load_inverted_index_from_file(self, letter: str):
+        with open(r'./OutputData/'+letter+'.txt', 'r') as f:
+            self.inverted_index[letter] = ast.literal_eval(f.read())
 
     @staticmethod
     def read_block(filename: str) -> dict:
@@ -41,12 +41,16 @@ class Spimi:
         for i in range(self.__block_count):
             filename = './OutputData/Block' + str(i) + '.txt'
             block = self.read_block(filename)
-            posting_list = []
             for term in block.keys():
-                if term in self.inverted_index.keys():
-                    self.inverted_index[term].extend(block[term])
+                letter = term[0].lower()
+                if letter not in self.inverted_index.keys():
+                    self.inverted_index[letter] = {}
+                if term in self.inverted_index[letter].keys():
+                    self.inverted_index[letter][term].extend(block[term])
                 else:
-                    self.inverted_index[term] = list(block[term])
-                posting_list.clear()
+                    self.inverted_index[letter][term] = list(block[term])
             os.remove(filename)
-        self.write_block(self.inverted_index, r'./OutputData/InvertedIndex.txt')
+        self.__block_count = 0
+        for letter in self.inverted_index.keys():
+            self.write_block(self.inverted_index[letter],
+                             './OutputData/'+letter+'.txt')
