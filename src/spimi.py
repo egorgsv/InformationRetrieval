@@ -9,6 +9,10 @@ class Spimi:
         self.__block_count = 0  # количество записанных блоков
         self.inverted_index = {}  # обратный индекс
 
+    def load_inverted_index_from_file(self, letter: str):
+        with open(r'./OutputData/'+letter+'.txt', 'r') as f:
+            self.inverted_index[letter] = ast.literal_eval(f.read())
+
     @staticmethod
     def read_block(filename: str) -> dict:
         with open(filename, 'r') as file:

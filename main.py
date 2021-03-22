@@ -14,36 +14,41 @@ with open(r"data/flag.txt", 'r') as f:
 
 with open(r"data/flag.txt", 'w') as f:
     if n == 0:
-        n = 1
-        nltk.download()
-    f.write(str(n))
+        nltk.download('stopwords')
+        nltk.download('punkt')
+    f.write(str(1))
 
 
 def main():
     docs_count = 0
     chunksize = 1000
     spimi = Spimi()
-    pbar = tqdm.tqdm(docs_count, position=0, leave=True)
-    with pd.read_csv(r"data/True.csv", chunksize=chunksize) as reader:
-        for chunk in reader:
-            words = tokenize(chunk)
-            docs = stem(words)
-            spimi.build_block(docs)
-            chunk['index'] = chunk.index
-            chunk.to_csv('data/block{}.csv'.format(docs_count//chunksize))
-            docs_count += len(chunk)
-            pbar.update(chunksize)
-    spimi.merge_blocks()
-    pbar.close()
-    del pbar
+    if n == 0:
+        pbar = tqdm.tqdm(docs_count, position=0, leave=True)
+        with pd.read_csv(r"data/True.csv", chunksize=chunksize) as reader:
+            for chunk in reader:
+                words = tokenize(chunk)
+                docs = stem(words)
+                spimi.build_block(docs)
+                chunk['index'] = chunk.index
+                chunk.to_csv('data/block{}.csv'.format(docs_count // chunksize))
+                docs_count += len(chunk)
+                pbar.update(chunksize)
+        spimi.merge_blocks()
+        pbar.close()
+        del pbar
+    else:
+        docs_count = 21417
     terms = list()
     porter = PorterStemmer()
     polish_query = reversed_polish_notation(args.QUERY)
     for i in range(len(polish_query)):
         if polish_query[i] not in OPERATORS:
+            if polish_query[i][0] not in spimi.inverted_index.keys():
+                spimi.load_inverted_index_from_file(polish_query[i][0])
             polish_query[i] = porter.stem(polish_query[i])
             terms += [polish_query[i]]
-            polish_query[i] = spimi.inverted_index[polish_query[i]]
+            polish_query[i] = spimi.inverted_index[polish_query[i][0]][polish_query[i]]
     ans = search(polish_query, docs_count)
     for i in ans:
         df = pd.read_csv('data/block{}.csv'.format(i//chunksize), index_col='index')
