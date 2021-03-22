@@ -7,7 +7,7 @@ from src.spimi import Spimi
 import tqdm
 from termcolor import colored
 from src.document import Document
-
+import sys
 
 with open(r"data/flag.txt", 'r') as f:
     n = int(f.read())
@@ -31,7 +31,7 @@ def main():
                 docs = stem(words)
                 spimi.build_block(docs)
                 chunk['index'] = chunk.index
-                chunk.to_csv('data/block{}.csv'.format(docs_count // chunksize))
+                chunk.to_csv('data/block{}.csv'.format(docs_count//chunksize))
                 docs_count += len(chunk)
                 pbar.update(chunksize)
         spimi.merge_blocks()
@@ -39,6 +39,7 @@ def main():
         del pbar
     else:
         docs_count = 21417
+
     terms = list()
     porter = PorterStemmer()
     polish_query = reversed_polish_notation(args.QUERY)
@@ -48,6 +49,10 @@ def main():
                 spimi.load_inverted_index_from_file(polish_query[i][0])
             polish_query[i] = porter.stem(polish_query[i])
             terms += [polish_query[i]]
+            if polish_query[i] not in spimi.inverted_index[polish_query[i][0]].keys():
+                print("Oops! Данное слово не найдено, попробуйте другое...")
+                sys.exit(1)
+            else:
             polish_query[i] = spimi.inverted_index[polish_query[i][0]][polish_query[i]]
     ans = search(polish_query, docs_count)
     for i in ans:
