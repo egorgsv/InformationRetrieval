@@ -1,4 +1,5 @@
 import argparse
+import nltk
 import pandas as pd
 from src.corpus_tokenization_stemming import *
 from src.parse_query import reversed_polish_notation
@@ -31,7 +32,7 @@ def main():
                 docs = stem(words)
                 spimi.build_block(docs)
                 chunk['index'] = chunk.index
-                chunk.to_csv('data/block{}.csv'.format(docs_count//chunksize))
+                chunk.to_csv('data/block{}.csv'.format(docs_count // chunksize))
                 docs_count += len(chunk)
                 pbar.update(chunksize)
         spimi.merge_blocks()
@@ -56,7 +57,7 @@ def main():
                 polish_query[i] = spimi.inverted_index[polish_query[i][0]][polish_query[i]]
     ans = search(polish_query, docs_count)
     for i in ans:
-        df = pd.read_csv('data/block{}.csv'.format(i//chunksize), index_col='index')
+        df = pd.read_csv('data/block{}.csv'.format(i // chunksize), index_col='index')
         for j in terms:
             df.loc[i, 'text'] = df.loc[i, 'text'].replace(' ' + j, colored(' ' + j, 'green'))
             df.loc[i, 'text'] = df.loc[i, 'text'].replace(' ' + j[0].upper() + j[1:],
