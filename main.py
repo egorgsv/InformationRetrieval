@@ -51,11 +51,13 @@ def main():
                 spimi.load_inverted_index_from_file(polish_query[i][0])
             terms += [polish_query[i]]
             if polish_query[i] not in spimi.inverted_index[polish_query[i][0]].keys():
-                print("Oops! Данный запрос не найден, попробуйте другой...")
-                sys.exit(1)
+                polish_query[i] = []
             else:
                 polish_query[i] = spimi.inverted_index[polish_query[i][0]][polish_query[i]]
     ans = search(polish_query, docs_count)
+    if ans == []:
+        print("Oops! Данный запрос не найден, попробуйте другой...")
+        sys.exit(1)
     for i in ans:
         df = pd.read_csv('data/block{}.csv'.format(i // chunksize), index_col='index')
         for j in terms:
